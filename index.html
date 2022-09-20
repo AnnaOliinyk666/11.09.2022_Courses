@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html {
+        background: rgb(160, 166, 221);
+        margin: 0;
+        border: 0;
+        padding: 0;
+        font-family: "Roboto", sans-serif;
+        font-weight: 100;
+        letter-spacing: 0.025rem;
+        height: 900px;
+        width: 1900px;
+      }
+      .wrapper {
+        background: white;
+        height: 97vh;
+        box-sizing: border-box;
+      }
+      .menu {
+        height: 97vh;
+        width: 150px;
+        background: gainsboro;
+        position: fixed;
+      }
+      .logo {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-top: 20px;
+      }
+      .logo__icon {
+        color: #2196f3;
+        font-size: 24px;
+      }
+      .menu__list {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 30px;
+        line-height: 0;
+      }
+      .menu__punkt,
+      .menu__icon {
+        color: gray;
+        font-weight: 400;
+      }
+      .menu__punkt:hover {
+        cursor: pointer;
+        color: black;
+      }
+      .menu__logout {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 30px;
+        margin-top: 180px;
+      }
+      main {
+        margin-left: 150px;
+        margin-right: 600px;
+        border-right: 2px solid rgb(233, 232, 232);
+        height: 97vh;
+      }
+      .avatar {
+        border-radius: 50%;
+        margin-top: 10px;
+      }
+      .login {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 20px;
+        line-height: 0;
+        letter-spacing: 0.05rem;
+      }
+      .User {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: 25px;
+      }
+      .login__state {
+        font-size: 10px;
+        line-height: 0;
+        margin-top: 0;
+      }
+      .menu__search {
+        display: flex;
+        flex-direction: row;
+        margin-right: 20px;
+      }
+      .menu__input input {
+        outline: none;
+        border: 0;
+        outline-offset: 0;
+        background: rgb(245, 244, 244);
+        height: 30px;
+      }
+      .menu__search-icon {
+        color: aliceblue;
+        background: black;
+        font-size: 24px;
+        width: 30px;
+        text-align: center;
+      }
+      header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+      }
+      .title {
+        font-weight: 500;
+        margin-left: 50px;
+      }
+      .courses__navigation a {
+        text-decoration: none;
+        color: grey;
+        margin: 5px;
+        padding: 5px;
+      }
+      .courses__navigation {
+        margin-left: 45px;
+      }
+      .courses__navigation a:hover {
+        border-bottom: 2px solid black;
+        cursor: pointer;
+      }
+      .courses__program {
+        height: 117px;
+        width: 570px;
+        margin: 50px;
+        border: 1px solid rgb(197, 197, 197);
+        display: flex;
+      }
+      .courses__body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        margin-left: 20px;
+      }
+      .courses__title {
+        letter-spacing: 0.05rem;
+        margin-bottom: 0;
+      }
+      .courses__date a {
+        text-decoration: none;
+        color: gray;
+        font-size: 12px;
+      }
+      /* ///////////////// */
+      .calendar {
+        width: 430px;
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .calendar__item {
+        width: calc(100% / 7);
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .calendar__item--small {
+        font-size: 0.75rem;
+      }
+      .calendar__item--grey {
+        color: rgb(194, 194, 194);
+      }
+      .calendar__item--active {
+        background: #000;
+        color: #fff;
+      }
+      .calendar__item:not(.calendar__item--small):hover {
+        background: lightgrey;
+        cursor: pointer;
+      }
+      .calendar-wrapper{
+        margin-left: 1360px;
+        position: absolute;
+        top: 20px;
+      }
+      .courses__date-sub{
+        margin-left: 40px;
+      }
+
+      /* //////////// */
+      .timeline {
+        height: 550px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+      }
+      .timeline__line {
+        height: 1px;
+        background: lightgray;
+        width: 80%;
+      }
+      .timeline__item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .lesson {
+        background: rgb(185, 185, 187);
+        width: 70%;
+        height: 44px;
+        position: absolute;
+        left: 25%;
+      }
+      .lesson--930h {
+        /* ??? */
+        top: calc(100% / 17 * 1);
+      }
+      .timeline-wrapper{
+        position: absolute;
+        margin-left: 1360px;
+        top: 470px;
+        width: 430px;
+        height: 800px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <aside class="menu">
+        <div class="logo">
+          <i class="lab la-staylinked logo__icon"></i>
+          <h3 class="logo__name">memo</h3>
+        </div>
+        <div class="menu__list">
+          <span class="menu__icon"><i class="las la-copy"></i></span>
+          <h5 class="menu__punkt">Courses</h5>
+        </div>
+        <div class="menu__list">
+          <span class="menu__icon"><i class="las la-credit-card"></i></span>
+          <h5 class="menu__punkt">Payment</h5>
+        </div>
+        <div class="menu__list">
+          <span class="menu__icon"><i class="las la-comment"></i></span>
+          <h5 class="menu__punkt">Chat</h5>
+        </div>
+        <div class="menu__list">
+          <span class="menu__icon"><i class="las la-user-alt"></i></span>
+          <h5 class="menu__punkt">Groups</h5>
+        </div>
+        <div class="menu__list">
+          <span class="menu__icon"><i class="las la-graduation-cap"></i></span>
+          <h5 class="menu__punkt">Students</h5>
+        </div>
+        <div class="menu__list">
+          <span class="menu__icon"><i class="las la-volume-up"></i></span>
+          <h5 class="menu__punkt">Support</h5>
+        </div>
+        <div class="menu__logout">
+          <span class="menu__icon"><i class="las la-volume-up"></i></span>
+          <h5 class="menu__punkt">Support</h5>
+        </div>
+      </aside>
+      <main>
+        <header>
+          <div class="User">
+            <img
+              class="avatar"
+              src="https://via.placeholder.com/40"
+              alt="avatar"
+            />
+            <div class="login">
+              <h5 class="login__name">Anna Oliinyk</h5>
+              <p class="login__state">Germany, Juchen</p>
+            </div>
+          </div>
+          <div class="menu__search">
+            <span class="menu__input">
+              <input type="text" placeholder="Search" />
+            </span>
+            <span class="menu__search-icon">
+              <i class="las la-search"></i>
+            </span>
+          </div>
+        </header>
+        <h2 class="title">Courses</h2>
+        <nav class="courses__navigation">
+          <a href="">All</a>
+          <a href="">Current</a>
+          <a href="">Pending</a>
+          <a href="">Complited</a>
+        </nav>
+        <div class="courses__program">
+          <img class="courses__img" src="1.jpg" alt="" />
+          <div class="courses__body">
+            <span class="courses__date">
+              <a href="">Programming</a>
+              <span class="courses__date-sub">
+                <a href="">Oct 09,2022</a>
+              </span>
+            </span>
+            <h4 class="courses__title">Object-Oriented Programming in Java</h4>
+          </div>
+        </div>
+      </main>
+      <section class="calendar-wrapper">
+        <h2>Schedule</h2>
+  
+        <ul class="calendar">
+          <li class="calendar__item calendar__item--small">Sun</li>
+          <li class="calendar__item calendar__item--small">Mon</li>
+          <li class="calendar__item calendar__item--small">Tue</li>
+          <li class="calendar__item calendar__item--small">Wed</li>
+          <li class="calendar__item calendar__item--small">Thu</li>
+          <li class="calendar__item calendar__item--small">Fri</li>
+          <li class="calendar__item calendar__item--small">Sat</li>
+          <li class="calendar__item calendar__item--grey">8</li>
+          <li class="calendar__item calendar__item--grey">9</li>
+          <li class="calendar__item calendar__item--grey">10</li>
+          <li class="calendar__item calendar__item--grey">11</li>
+          <li class="calendar__item calendar__item--grey">12</li>
+          <li class="calendar__item">13</li>
+          <li class="calendar__item">14</li>
+          <li class="calendar__item">15</li>
+          <li class="calendar__item">16</li>
+          <li class="calendar__item">17</li>
+          <li class="calendar__item">18</li>
+          <li class="calendar__item">19</li>
+          <li class="calendar__item calendar__item--active">20</li>
+          <li class="calendar__item">21</li>
+          <li class="calendar__item">22</li>
+          <li class="calendar__item">23</li>
+          <li class="calendar__item">24</li>
+          <li class="calendar__item">25</li>
+          <li class="calendar__item">26</li>
+          <li class="calendar__item">27</li>
+          <li class="calendar__item">28</li>
+          <li class="calendar__item">29</li>
+          <li class="calendar__item">30</li>
+          <li class="calendar__item">31</li>
+          <li class="calendar__item">32</li>
+          <li class="calendar__item">33</li>
+          <li class="calendar__item">34</li>
+          <li class="calendar__item">35</li>
+          <li class="calendar__item">36</li>
+          <li class="calendar__item">37</li>
+          <li class="calendar__item">38</li>
+          <li class="calendar__item">39</li>
+          <li class="calendar__item">40</li>
+          <li class="calendar__item">41</li>
+          <li class="calendar__item">42</li>
+        </ul>
+      </section>
+      <section class="timeline-wrapper">
+        <h3>Upcoming</h3>
+  
+        <div class="timeline">
+          <div class="lesson lesson--930h"></div>
+  
+          <div class="timeline__item">
+            <div class="timeline__time">09:00</div>
+            <div class="timeline__line"></div>
+          </div>
+          <div class="timeline__item">
+            <div class="timeline__time">10:00</div>
+            <div class="timeline__line"></div>
+          </div>
+          <div class="timeline__item">
+            <div class="timeline__time">11:00</div>
+            <div class="timeline__line"></div>
+          </div>
+          <div class="timeline__item">
+            <div class="timeline__time">12:00</div>
+            <div class="timeline__line"></div>
+          </div>
+          <div class="timeline__item">
+            <div class="timeline__time">13:00</div>
+            <div class="timeline__line"></div>
+          </div>
+          <div class="timeline__item">
+            <div class="timeline__time">14:00</div>
+            <div class="timeline__line"></div>
+          </div>
+          <div class="timeline__item">
+            <div class="timeline__time">15:00</div>
+            <div class="timeline__line"></div>
+          </div>
+          <div class="timeline__item">
+            <div class="timeline__time">16:00</div>
+            <div class="timeline__line"></div>
+          </div>
+          <div class="timeline__item">
+            <div class="timeline__time">17:00</div>
+            <div class="timeline__line"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
